@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up GCC
+        uses: actions/setup-gcc@v1
+        with:
+          gcc-version: 11
+
+      - name: Build and run static analysis
+        run: |
+          gcc -o char_frequency char_frequency.c -Wall -Wextra -Werror
+          ./char_frequency
